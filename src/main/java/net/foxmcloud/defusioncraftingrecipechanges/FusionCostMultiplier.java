@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Level;
 
 import com.brandon3055.brandonscore.registry.ModConfigContainer;
 import com.brandon3055.brandonscore.registry.ModConfigProperty;
+import com.brandon3055.draconicevolution.DEFeatures;
 import com.brandon3055.draconicevolution.api.fusioncrafting.FusionRecipeAPI;
 import com.brandon3055.draconicevolution.api.fusioncrafting.IFusionRecipe;
 import com.brandon3055.draconicevolution.api.fusioncrafting.SimpleFusionRecipe;
@@ -54,6 +55,44 @@ public class FusionCostMultiplier {
 				if (oldRecipe instanceof FusionUpgradeRecipe) {
 					FusionUpgradeRecipe oldUpgradeRecipe = (FusionUpgradeRecipe)oldRecipe;
 					List newIngredients = new ArrayList();
+					if (tier == 0) {
+						newIngredients.add(DEFeatures.draconiumBlock);
+						newIngredients.add(DEFeatures.draconiumBlock);
+						newIngredients.add(Blocks.DIAMOND_BLOCK);
+						newIngredients.add(Blocks.DIAMOND_BLOCK);
+						newIngredients.add(DEFeatures.draconicCore);
+						newIngredients.add(DEFeatures.draconicCore);
+						newIngredients.add(Blocks.REDSTONE_BLOCK);
+					}
+					else if (tier == 1) {
+						newIngredients.add(DEFeatures.draconiumBlock);
+						newIngredients.add(DEFeatures.draconiumBlock);
+						newIngredients.add(DEFeatures.draconicCore);
+						newIngredients.add(DEFeatures.draconicCore);
+						newIngredients.add(DEFeatures.wyvernCore);
+						newIngredients.add(DEFeatures.wyvernCore);
+						newIngredients.add(DEFeatures.wyvernEnergyCore);
+					}
+					else if (tier == 2) {
+						newIngredients.add(DEFeatures.draconicBlock);
+						newIngredients.add(DEFeatures.draconicBlock);
+						newIngredients.add(DEFeatures.wyvernCore);
+						newIngredients.add(DEFeatures.wyvernCore);
+						newIngredients.add(DEFeatures.awakenedCore);
+						newIngredients.add(DEFeatures.awakenedCore);
+						newIngredients.add(DEFeatures.draconicEnergyCore);
+					}
+					else if (tier == 3) {
+						newIngredients.add(DEFeatures.draconicBlock);
+						newIngredients.add(DEFeatures.draconicBlock);
+						newIngredients.add(DEFeatures.awakenedCore);
+						newIngredients.add(DEFeatures.awakenedCore);
+						newIngredients.add(DEFeatures.chaoticCore);
+						newIngredients.add(DEFeatures.chaoticCore);
+						// Should be Chaotic Energy Core from Draconic Additions
+						newIngredients.add(DEFeatures.draconicEnergyCore);
+					}
+					/*
 					// For each ingredient...
 					for (int i = 0; i < ingredients.size(); i++) {
 						Object obj = ingredients.get(i);
@@ -77,8 +116,10 @@ public class FusionCostMultiplier {
 							newIngredients.add(obj);
 						}
 					}
+					*/
 					newRecipe = new FusionUpgradeRecipe(oldUpgradeRecipe.upgrade, oldUpgradeRecipe.upgradeKey, rfCost, tier, oldUpgradeRecipe.upgradeLevel, newIngredients.toArray());
 				}
+				// Probably unused
 				else {
 					newRecipe = new SimpleFusionRecipe(output, catalyst, rfCost, tier, ingredients);
 				}
