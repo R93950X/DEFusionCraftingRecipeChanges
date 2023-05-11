@@ -40,7 +40,7 @@ public class FusionCostMultiplier {
 		LogHelper.info("no no no no NOT AGAI-!!!");
 		LogHelper.info("Ha! Too easy. Beginning recipe rebalancing at power level " + POWER_COST_MULTIPLIER + " and editing some additional recipes, just for fun.  You like fun, right?");
 		for (IFusionRecipe oldRecipe : recipes) {
-			if (!oldRecipe.getRecipeCatalyst().isEmpty() || oldRecipe instanceof FusionUpgradeRecipe) {
+			if (oldRecipe instanceof FusionUpgradeRecipe) {
 				LogHelper.dev(oldRecipe.getRecipeOutput(oldRecipe.getRecipeCatalyst()).getItem().getUnlocalizedName() + " was " + oldRecipe.getIngredientEnergyCost());
 				FusionRecipeAPI.removeRecipe(oldRecipe);
 
