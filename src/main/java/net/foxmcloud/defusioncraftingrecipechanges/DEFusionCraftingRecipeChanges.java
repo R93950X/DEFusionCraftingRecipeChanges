@@ -21,7 +21,7 @@ public class DEFusionCraftingRecipeChanges {
 	public static final String PROXY_COMMON = "net.foxmcloud.defusioncraftingrecipechanges.CommonProxy";
 	public static final String VERSION = "${mod_version}";
 	public static final String MODID_PREFIX = MODID + ":";
-	public static final String dependencies = "required-after:draconicevolution;required-after:draconicadditions";
+	public static final String dependencies = "required-after:draconicevolution";
 	public static SimpleNetworkWrapper network;
 
 	public static Logger logger = LogManager.getLogger(DEFusionCraftingRecipeChanges.MODID);

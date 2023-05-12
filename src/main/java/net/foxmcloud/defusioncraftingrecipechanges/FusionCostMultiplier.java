@@ -26,48 +26,56 @@ public class FusionCostMultiplier {
 	@ModConfigProperty.MinMax(min = "0", max = "10")
 	public static double POWER_COST_MULTIPLIER = 1.0D;
 
+	@ModConfigProperty(category = "Main Settings", name = "Upgrade Energy Costs", comment = "Energy cost for each tier of upgrade. This is the energy cost per ingredient in the recipe.", requiresMCRestart = true, requiresSync = true)
+	public static long[] energyCost = new long[] {
+			32000,
+			512000,
+			32000000,
+			512000000
+	};
+
 	@ModConfigProperty(category = "Main Settings", name = "Basic Upgrade Ingredients", comment = "Ingredients for the first upgrade tier.", requiresMCRestart = true, requiresSync = true)
 	public static String[] basicRecipe = new String[] {
-			"draconicevolution:draconium_block",
-			"draconicevolution:draconium_block",
-			"minecraft:diamond_block",
-			"minecraft:diamond_block",
-			"draconicevolution:draconic_core",
-			"draconicevolution:draconic_core",
-			"minecraft:redstone_block"
+			"minecraft:golden_apple",
+			"minecraft:golden_apple",
+			"minecraft:diamond",
+			"minecraft:diamond",
+			"minecraft:ender_eye",
+			"minecraft:ender_eye",
+			"draconicevolution:draconic_core"
 	};
 
 	@ModConfigProperty(category = "Main Settings", name = "Wyvern Upgrade Ingredients", comment = "Ingredients for the second upgrade tier.", requiresMCRestart = true, requiresSync = true)
 	public static String[] wyvernRecipe = new String[] {
-			"draconicevolution:draconium_block",
-			"draconicevolution:draconium_block",
+			"minecraft:nether_star",
+			"minecraft:nether_star",
 			"draconicevolution:draconic_core",
 			"draconicevolution:draconic_core",
-			"draconicevolution:wyvern_core",
-			"draconicevolution:wyvern_core",
-			"draconicevolution:wyvern_energy_core"
+			"minecraft:emerald",
+			"minecraft:emerald",
+			"draconicevolution:wyvern_core"
 	};
 
 	@ModConfigProperty(category = "Main Settings", name = "Draconic Upgrade Ingredients", comment = "Ingredients for the third upgrade tier.", requiresMCRestart = true, requiresSync = true)
 	public static String[] draconicRecipe = new String[] {
-			"draconicevolution:draconic_block",
-			"draconicevolution:draconic_block",
+			"minecraft:nether_star",
+			"minecraft:nether_star",
 			"draconicevolution:wyvern_core",
 			"draconicevolution:wyvern_core",
-			"draconicevolution:awakened_core",
-			"draconicevolution:awakened_core",
-			"draconicevolution:draconic_energy_core"
+			"minecraft:emerald_block",
+			"minecraft:emerald_block",
+			"draconicevolution:awakened_core"
 	};
 
 	@ModConfigProperty(category = "Main Settings", name = "Chaotic Upgrade Ingredients", comment = "Ingredients for the fourth upgrade tier.", requiresMCRestart = true, requiresSync = true)
 	public static String[] chaoticRecipe = new String[] {
-			"draconicevolution:draconic_block",
-			"draconicevolution:draconic_block",
+			"draconicevolution:wyvern_core",
+			"draconicevolution:wyvern_core",
 			"draconicevolution:awakened_core",
 			"draconicevolution:awakened_core",
-			"draconicevolution:chaotic_core",
-			"draconicevolution:chaotic_core",
-			"draconicadditions:chaotic_energy_core"
+			"minecraft:dragon_egg",
+			"minecraft:dragon_egg",
+			"draconicevolution:chaotic_core"
 	};
 	/**
 	 * None of the default recipes define ingredients using an ItemStack.<br>
@@ -91,8 +99,8 @@ public class FusionCostMultiplier {
 				IFusionRecipe newRecipe;
 				ItemStack output = oldRecipe.getRecipeOutput(oldRecipe.getRecipeCatalyst());
 				ItemStack catalyst = oldRecipe.getRecipeCatalyst();
-				long rfCost = (long)(oldRecipe.getIngredientEnergyCost() * POWER_COST_MULTIPLIER);
 				int tier = oldRecipe.getRecipeTier();
+				long rfCost = energyCost[tier];
 				List ingredients = oldRecipe.getRecipeIngredients();
 
 				if (oldRecipe instanceof FusionUpgradeRecipe) {
