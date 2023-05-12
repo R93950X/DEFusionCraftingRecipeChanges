@@ -26,6 +26,16 @@ public class FusionCostMultiplier {
 	@ModConfigProperty.MinMax(min = "0", max = "10")
 	public static double POWER_COST_MULTIPLIER = 1.0D;
 
+	@ModConfigProperty(category = "Main Settings", name = "Basic Upgrade Ingredients", comment = "Ingredients for the first upgrade tier.", requiresMCRestart = true, requiresSync = true)
+	public static String[] basicRecipe = new String[] {
+			"draconicevolution:draconium_block",
+			"draconicevolution:draconium_block",
+			"minecraft:diamond_block",
+			"minecraft:diamond_block",
+			"draconicevolution:draconic_core",
+			"draconicevolution:draconic_core",
+			"minecraft:redstone_block"
+	};
 	/**
 	 * None of the default recipes define ingredients using an ItemStack.<br>
 	 * Most of the ingredients will be found as Items.<br>
@@ -56,13 +66,17 @@ public class FusionCostMultiplier {
 					FusionUpgradeRecipe oldUpgradeRecipe = (FusionUpgradeRecipe)oldRecipe;
 					List newIngredients = new ArrayList();
 					if (tier == 0) {
-						newIngredients.add(DEFeatures.draconiumBlock);
+						for (int i = 0; i < basicRecipe.length; i++) {
+							String itemName = basicRecipe[i];
+							newIngredients.add(Item.getByNameOrId(itemName));
+						}
+						/*newIngredients.add(DEFeatures.draconiumBlock);
 						newIngredients.add(DEFeatures.draconiumBlock);
 						newIngredients.add(Blocks.DIAMOND_BLOCK);
 						newIngredients.add(Blocks.DIAMOND_BLOCK);
 						newIngredients.add(DEFeatures.draconicCore);
 						newIngredients.add(DEFeatures.draconicCore);
-						newIngredients.add(Blocks.REDSTONE_BLOCK);
+						newIngredients.add(Blocks.REDSTONE_BLOCK);*/
 					}
 					else if (tier == 1) {
 						newIngredients.add(DEFeatures.draconiumBlock);
@@ -89,7 +103,6 @@ public class FusionCostMultiplier {
 						newIngredients.add(DEFeatures.awakenedCore);
 						newIngredients.add(DEFeatures.chaoticCore);
 						newIngredients.add(DEFeatures.chaoticCore);
-						// Should be Chaotic Energy Core from Draconic Additions
 						newIngredients.add(Item.getByNameOrId("draconicadditions:chaotic_energy_core")); //Forgive me for this sin!
 						//newIngredients.add(DEFeatures.draconicEnergyCore);
 					}
