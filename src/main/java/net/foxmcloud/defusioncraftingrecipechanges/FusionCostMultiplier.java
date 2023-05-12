@@ -22,10 +22,6 @@ import net.minecraft.item.ItemStack;
 
 @ModConfigContainer(modid = DEFusionCraftingRecipeChanges.MODID)
 public class FusionCostMultiplier {
-	@ModConfigProperty(category = "Main Settings", name = "Fusion Crafting Cost Multiplier", comment = "Allows you to adjust the multiplier on fusion crafting. This config is NOT automatically updated when you join another server, and you must restart Minecraft for this config to take effect.", requiresMCRestart = true, requiresSync = true)
-	@ModConfigProperty.MinMax(min = "0", max = "10")
-	public static double POWER_COST_MULTIPLIER = 1.0D;
-
 	@ModConfigProperty(category = "Main Settings", name = "Upgrade Energy Costs", comment = "Energy cost for each tier of upgrade. This is the energy cost per ingredient in the recipe.", requiresMCRestart = true, requiresSync = true)
 	public static double[] energyCost = new double[] {
 			32e3,
@@ -90,7 +86,7 @@ public class FusionCostMultiplier {
 		List<IFusionRecipe> recipes = FusionRecipeAPI.getRecipes();
 		DEFusionCraftingRecipeChanges.logger.log(Level.INFO, "Starting takeover of Draconic Evolution. Prepare thyself :)");
 		LogHelper.info("no no no no NOT AGAI-!!!");
-		LogHelper.info("Ha! Too easy. Beginning recipe rebalancing at power level " + POWER_COST_MULTIPLIER + " and editing some additional recipes, just for fun.  You like fun, right?");
+		LogHelper.info("Ha! Too easy. Beginning recipe rebalancing and editing some additional recipes, just for fun.  You like fun, right?");
 		for (IFusionRecipe oldRecipe : recipes) {
 			if (oldRecipe instanceof FusionUpgradeRecipe) {
 				LogHelper.dev(oldRecipe.getRecipeOutput(oldRecipe.getRecipeCatalyst()).getItem().getUnlocalizedName() + " was " + oldRecipe.getIngredientEnergyCost());
@@ -100,67 +96,37 @@ public class FusionCostMultiplier {
 				ItemStack output = oldRecipe.getRecipeOutput(oldRecipe.getRecipeCatalyst());
 				ItemStack catalyst = oldRecipe.getRecipeCatalyst();
 				int tier = oldRecipe.getRecipeTier();
-				long rfCost = (long)(energyCost[tier] * POWER_COST_MULTIPLIER);
+				long rfCost = (long)(energyCost[tier]);
 				List ingredients = oldRecipe.getRecipeIngredients();
 
-				if (oldRecipe instanceof FusionUpgradeRecipe) {
-					FusionUpgradeRecipe oldUpgradeRecipe = (FusionUpgradeRecipe)oldRecipe;
-					List newIngredients = new ArrayList();
-					if (tier == 0) {
-						for (int i = 0; i < basicRecipe.length; i++) {
-							String itemName = basicRecipe[i];
-							newIngredients.add(Item.getByNameOrId(itemName));
-						}
+				FusionUpgradeRecipe oldUpgradeRecipe = (FusionUpgradeRecipe)oldRecipe;
+				List newIngredients = new ArrayList();
+				if (tier == 0) {
+					for (int i = 0; i < basicRecipe.length; i++) {
+						String itemName = basicRecipe[i];
+						newIngredients.add(Item.getByNameOrId(itemName));
 					}
-					else if (tier == 1) {
-						for (int i = 0; i < wyvernRecipe.length; i++) {
-							String itemName = wyvernRecipe[i];
-							newIngredients.add(Item.getByNameOrId(itemName));
-						}
+				}
+				else if (tier == 1) {
+					for (int i = 0; i < wyvernRecipe.length; i++) {
+						String itemName = wyvernRecipe[i];
+						newIngredients.add(Item.getByNameOrId(itemName));
 					}
-					else if (tier == 2) {
-						for (int i = 0; i < draconicRecipe.length; i++) {
-							String itemName = draconicRecipe[i];
-							newIngredients.add(Item.getByNameOrId(itemName));
-						}
+				}
+				else if (tier == 2) {
+					for (int i = 0; i < draconicRecipe.length; i++) {
+						String itemName = draconicRecipe[i];
+						newIngredients.add(Item.getByNameOrId(itemName));
 					}
-					else if (tier == 3) {
-						for (int i = 0; i < chaoticRecipe.length; i++) {
-							String itemName = chaoticRecipe[i];
-							newIngredients.add(Item.getByNameOrId(itemName));
-						}
+				}
+				else if (tier == 3) {
+					for (int i = 0; i < chaoticRecipe.length; i++) {
+						String itemName = chaoticRecipe[i];
+						newIngredients.add(Item.getByNameOrId(itemName));
 					}
-					/*
-					// For each ingredient...
-					for (int i = 0; i < ingredients.size(); i++) {
-						Object obj = ingredients.get(i);
-
-						// This is where you'll change the ingredients based on criteria.
-						if (obj.equals(Items.GOLDEN_APPLE)) {
-							obj = Items.APPLE;
-						}
-						else if (obj.equals(Blocks.DRAGON_EGG)) {
-							obj = "ingotGold";
-						}
-						else if (obj.equals(Blocks.EMERALD_BLOCK)) {
-							obj = Blocks.ANVIL;
-						}
-						else if (obj.equals("gemDiamond")) {
-							obj = Items.ARROW;
-						}
-
-						// We don't want to re-add the upgrade key, since it gets added dynamically into the recipe when you make a new FusionUpgradeRecipe.
-						if (!obj.equals(oldUpgradeRecipe.upgradeKey)) {
-							newIngredients.add(obj);
-						}
-					}
-					*/
+				}
 					newRecipe = new FusionUpgradeRecipe(oldUpgradeRecipe.upgrade, oldUpgradeRecipe.upgradeKey, rfCost, tier, oldUpgradeRecipe.upgradeLevel, newIngredients.toArray());
-				}
-				// Probably unused
-				else {
-					newRecipe = new SimpleFusionRecipe(output, catalyst, rfCost, tier, ingredients);
-				}
+					
 				FusionRecipeAPI.addRecipe(newRecipe);
 				if (!FusionRecipeAPI.getRecipes().contains(newRecipe)) {
 					LogHelper.warn("One of the recipes in the fusion crafting database cannot be changed.  Attempting to put old recipe back...");
