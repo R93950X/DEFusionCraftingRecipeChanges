@@ -27,11 +27,11 @@ public class FusionCostMultiplier {
 	public static double POWER_COST_MULTIPLIER = 1.0D;
 
 	@ModConfigProperty(category = "Main Settings", name = "Upgrade Energy Costs", comment = "Energy cost for each tier of upgrade. This is the energy cost per ingredient in the recipe.", requiresMCRestart = true, requiresSync = true)
-	public static long[] energyCost = new long[] {
-			32000,
-			512000,
-			32000000,
-			512000000
+	public static double[] energyCost = new double[] {
+			32e3,
+			512e3,
+			32e6,
+			256e6
 	};
 
 	@ModConfigProperty(category = "Main Settings", name = "Basic Upgrade Ingredients", comment = "Ingredients for the first upgrade tier.", requiresMCRestart = true, requiresSync = true)
@@ -100,7 +100,7 @@ public class FusionCostMultiplier {
 				ItemStack output = oldRecipe.getRecipeOutput(oldRecipe.getRecipeCatalyst());
 				ItemStack catalyst = oldRecipe.getRecipeCatalyst();
 				int tier = oldRecipe.getRecipeTier();
-				long rfCost = energyCost[tier];
+				long rfCost = (long)(energyCost[tier] * POWER_COST_MULTIPLIER);
 				List ingredients = oldRecipe.getRecipeIngredients();
 
 				if (oldRecipe instanceof FusionUpgradeRecipe) {
