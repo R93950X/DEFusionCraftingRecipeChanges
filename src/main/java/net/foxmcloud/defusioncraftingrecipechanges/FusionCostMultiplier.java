@@ -90,7 +90,8 @@ public class FusionCostMultiplier {
 						newIngredients.add(DEFeatures.chaoticCore);
 						newIngredients.add(DEFeatures.chaoticCore);
 						// Should be Chaotic Energy Core from Draconic Additions
-						newIngredients.add(DEFeatures.draconicEnergyCore);
+						newIngredients.add(Item.getByNameOrId("draconicadditions:chaotic_energy_core")); //Forgive me for this sin!
+						//newIngredients.add(DEFeatures.draconicEnergyCore);
 					}
 					/*
 					// For each ingredient...
