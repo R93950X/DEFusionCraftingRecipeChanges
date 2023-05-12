@@ -36,6 +36,39 @@ public class FusionCostMultiplier {
 			"draconicevolution:draconic_core",
 			"minecraft:redstone_block"
 	};
+
+	@ModConfigProperty(category = "Main Settings", name = "Wyvern Upgrade Ingredients", comment = "Ingredients for the second upgrade tier.", requiresMCRestart = true, requiresSync = true)
+	public static String[] wyvernRecipe = new String[] {
+			"draconicevolution:draconium_block",
+			"draconicevolution:draconium_block",
+			"draconicevolution:draconic_core",
+			"draconicevolution:draconic_core",
+			"draconicevolution:wyvern_core",
+			"draconicevolution:wyvern_core",
+			"draconicevolution:wyvern_energy_core"
+	};
+
+	@ModConfigProperty(category = "Main Settings", name = "Draconic Upgrade Ingredients", comment = "Ingredients for the third upgrade tier.", requiresMCRestart = true, requiresSync = true)
+	public static String[] draconicRecipe = new String[] {
+			"draconicevolution:draconic_block",
+			"draconicevolution:draconic_block",
+			"draconicevolution:wyvern_core",
+			"draconicevolution:wyvern_core",
+			"draconicevolution:awakened_core",
+			"draconicevolution:awakened_core",
+			"draconicevolution:draconic_energy_core"
+	};
+
+	@ModConfigProperty(category = "Main Settings", name = "Chaotic Upgrade Ingredients", comment = "Ingredients for the fourth upgrade tier.", requiresMCRestart = true, requiresSync = true)
+	public static String[] chaoticRecipe = new String[] {
+			"draconicevolution:draconic_block",
+			"draconicevolution:draconic_block",
+			"draconicevolution:awakened_core",
+			"draconicevolution:awakened_core",
+			"draconicevolution:chaotic_core",
+			"draconicevolution:chaotic_core",
+			"draconicadditions:chaotic_energy_core"
+	};
 	/**
 	 * None of the default recipes define ingredients using an ItemStack.<br>
 	 * Most of the ingredients will be found as Items.<br>
@@ -70,41 +103,24 @@ public class FusionCostMultiplier {
 							String itemName = basicRecipe[i];
 							newIngredients.add(Item.getByNameOrId(itemName));
 						}
-						/*newIngredients.add(DEFeatures.draconiumBlock);
-						newIngredients.add(DEFeatures.draconiumBlock);
-						newIngredients.add(Blocks.DIAMOND_BLOCK);
-						newIngredients.add(Blocks.DIAMOND_BLOCK);
-						newIngredients.add(DEFeatures.draconicCore);
-						newIngredients.add(DEFeatures.draconicCore);
-						newIngredients.add(Blocks.REDSTONE_BLOCK);*/
 					}
 					else if (tier == 1) {
-						newIngredients.add(DEFeatures.draconiumBlock);
-						newIngredients.add(DEFeatures.draconiumBlock);
-						newIngredients.add(DEFeatures.draconicCore);
-						newIngredients.add(DEFeatures.draconicCore);
-						newIngredients.add(DEFeatures.wyvernCore);
-						newIngredients.add(DEFeatures.wyvernCore);
-						newIngredients.add(DEFeatures.wyvernEnergyCore);
+						for (int i = 0; i < wyvernRecipe.length; i++) {
+							String itemName = wyvernRecipe[i];
+							newIngredients.add(Item.getByNameOrId(itemName));
+						}
 					}
 					else if (tier == 2) {
-						newIngredients.add(DEFeatures.draconicBlock);
-						newIngredients.add(DEFeatures.draconicBlock);
-						newIngredients.add(DEFeatures.wyvernCore);
-						newIngredients.add(DEFeatures.wyvernCore);
-						newIngredients.add(DEFeatures.awakenedCore);
-						newIngredients.add(DEFeatures.awakenedCore);
-						newIngredients.add(DEFeatures.draconicEnergyCore);
+						for (int i = 0; i < draconicRecipe.length; i++) {
+							String itemName = draconicRecipe[i];
+							newIngredients.add(Item.getByNameOrId(itemName));
+						}
 					}
 					else if (tier == 3) {
-						newIngredients.add(DEFeatures.draconicBlock);
-						newIngredients.add(DEFeatures.draconicBlock);
-						newIngredients.add(DEFeatures.awakenedCore);
-						newIngredients.add(DEFeatures.awakenedCore);
-						newIngredients.add(DEFeatures.chaoticCore);
-						newIngredients.add(DEFeatures.chaoticCore);
-						newIngredients.add(Item.getByNameOrId("draconicadditions:chaotic_energy_core")); //Forgive me for this sin!
-						//newIngredients.add(DEFeatures.draconicEnergyCore);
+						for (int i = 0; i < chaoticRecipe.length; i++) {
+							String itemName = chaoticRecipe[i];
+							newIngredients.add(Item.getByNameOrId(itemName));
+						}
 					}
 					/*
 					// For each ingredient...
