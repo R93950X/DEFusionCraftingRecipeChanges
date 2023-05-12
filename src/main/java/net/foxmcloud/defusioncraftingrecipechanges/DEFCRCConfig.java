@@ -22,7 +22,7 @@ public class DEFCRCConfig implements IModConfigHelper {
 	public static Map<String, String> comments = new HashMap<String, String>();
 	
 	static {
-		comments.put("Main Settings", "Allows you to tweak the settings for this mod.");
+		comments.put("Main Settings", "Allows you to tweak the settings for this mod. Any changes need to be present on both the server and client.");
 	}
 
 	@Override
